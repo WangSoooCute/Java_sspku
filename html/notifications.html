@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>通知</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    /* 全局样式 */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+      animation: backgroundMove 8s linear infinite;
+      background-size: 200% 200%;
+      overflow-x: hidden;
+    }
+
+    @keyframes backgroundMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    header {
+      background-color: #2b2d42;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .notification-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeIn 0.5s ease forwards;
+      transform: scale(0.9);
+    }
+
+    .notification-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .notification-card h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #2b2d42;
+    }
+
+    .notification-card p {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+
+    .notification-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+    }
+
+    .notification-content.open {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #2b2d42;
+      color: white;
+      margin-top: 20px;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2b2d42;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 1.5rem;
+      display: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .back-to-top.show {
+      display: block;
+    }
+
+    .back-to-top:hover {
+      background: #3c3f58;
+      transform: scale(1.2);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- 头部 -->
+    <header>
+      <h1>班级通知</h1>
+    </header>
+
+    <!-- 通知容器 -->
+    <main class="container">
+      <!-- 通知卡片 -->
+      <div v-for="notification in notifications" :key="notification.id" class="notification-card" @click="toggleNotification(notification.id)">
+        <h2>{{ notification.title }}</h2>
+        <p class="notification-content" :class="{ open: notification.open }">{{ notification.content }}</p>
+      </div>
+
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+      <p></p>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" @click="scrollToTop" :class="{ show: showBackToTop }">↑</button>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          notifications: [
+            {
+              id: 1,
+              title: '本笔记的仓库地址',
+              content: 'https://github.com/WangSoooCute/Java_sspku',
+              open: true
+            },
+          ],
+          showBackToTop: false
+        };
+      },
+      methods: {
+        toggleNotification(id) {
+          const notification = this.notifications.find(n => n.id === id);
+          if (notification) {
+            notification.open = !notification.open;
+          }
+        },
+        scrollToTop() {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+        handleScroll() {
+          this.showBackToTop = window.scrollY > 300;
+        }
+      },
+      mounted() {
+        window.addEventListener('scroll', this.handleScroll);
+      },
+      unmounted() {
+        window.removeEventListener('scroll', this.handleScroll);
+      }
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
+

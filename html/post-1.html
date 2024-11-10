@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的第一个博客</title>
+  <title>后端工具</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -35,10 +35,13 @@
     }
 
     .container img {
-      width: 100%;
-      height: auto;
-      margin-bottom: 20px;
-      border-radius: 8px;
+      display: block; /* 将图片设置为块级元素 */
+  margin-left: auto; /* 自动设置左外边距 */
+  margin-right: auto; /* 自动设置右外边距 */
+  width: 50%; /* 图片宽度 */
+  height: auto; /* 保持图片比例 */
+  margin-bottom: 20px; /* 图片底部外边距 */
+  border-radius: 8px; /* 圆角 */
     }
 
     .container h2 {
@@ -69,27 +72,108 @@
       color: white;
       margin-top: 20px;
     }
+
+    .section {
+      margin-left: auto; /* 自动设置左外边距 */
+  margin-right: auto; /* 自动设置右外边距 */
+      max-width: 1200px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.section-title {
+  background-color: #f4f4f4;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.section-content {
+  padding: 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.section-content.open {
+  /* max-width: 1200px; */
+  max-height: none; /* 可调整高度 */
+  opacity: 1;
+}
+
+.section-content img {
+  display: block; /* 将图片设置为块级元素 */
+  margin: 20px auto; /* 自动设置左右外边距以居中 */
+  max-width: 80%; /* 限制图片宽度不超过容器宽度 */
+  height: auto; /* 保持图片比例 */
+  border-radius: 8px; /* 图片圆角 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 增加阴影效果 */
+}
+
+.container {
+  counter-reset: section-counter; /* 初始化计数器 */
+}
+
+.section-title::before {
+  counter-increment: section-counter; /* 增加计数器 */
+  content: counter(section-counter) "、"; /* 显示计数 */
+  margin-right: 10px; /* 间距调整 */
+  font-weight: bold;
+  color: #2b2d42;
+}
   </style>
+
+<script>
+  function toggleSection(element) {
+    const content = element.nextElementSibling;
+    content.classList.toggle('open');
+  }
+</script>
+
 </head>
 <body>
   <!-- 头部 -->
   <header>
-    <h1>我的个人博客</h1>
+    <h1>后端工具</h1>
   </header>
 
   <!-- 博客内容 -->
   <main class="container">
-    <img src="wzx.jpg" alt="我的第一个博客">
-    <h2>我的第一个博客</h2>
-    <p><strong>日期：</strong>2024-11-01</p>
-    <p>欢迎来到我的第一篇博客文章！这篇文章记录了我的学习之旅，以及我对技术和编程的热爱。</p>
-    <p>我希望通过这个博客与大家分享我的经验，同时与更多志同道合的人交流。谢谢你的阅读！</p>
-    <a href="index.html" class="back-link">返回首页</a>
+    <img src="../images/1/java_mysql.jpg" alt="我的第一个博客">
+    <h2>后端工具</h2>
+    <p><strong>日期：</strong>2024-11-11</p>
+    <p>环境的安装、hello world级别的简单程序</p>
+    <a href="../index.html" class="back-link">返回首页</a>
   </main>
+
+  <div class="section">
+    <h3 class="section-title" onclick="toggleSection(this)">Java环境配置</h3>
+    <div class="section-content">
+      <h4>Windows</h4>
+      <p>下载JDK安装包（jdk-8u131-windows-x64.exe）：https://www.oracle.com/java/technologies/downloads/#java8-windows中的exe版本，
+      </p>
+      <p>双击下载好的JDK，按照提示进行默认安装即可，注意安装路径不能出现中文或空格</p>
+      <p>环境配置：</p>
+      <p>新建“JAVA_HOME”环境变量，变量值为JDK的安装目录：
+      </p>
+      <img src="../images/1/environment_variables.jpg" alt="environment_variables">
+      <p>将“JAVA_HOME”环境变量添加到Path中。然后通过cmd中java –version看是否安装成功
+      </p>
+      <img src="../images/1/environment_variables2.png" alt="environment_variables2">
+      <img src="../images/1/environment_variables3.png" alt="environment_variables3">
+    </div>
+  </div>  
 
   <!-- 页脚 -->
   <footer>
-    <p>&copy; 2024 我的个人博客. 保留所有权利。</p>
+    <p></p>
   </footer>
 </body>
 </html>

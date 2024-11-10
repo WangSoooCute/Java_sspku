@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Java 2024 sspku</title>
+  <title>我的个人博客</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <style>
@@ -72,7 +72,6 @@
       max-width: 1200px;
       margin: 40px auto;
       padding: 10px;
-      cursor: pointer; /* 鼠标悬停时显示指针手势 */
     }
 
     .blog-card {
@@ -90,7 +89,7 @@
     }
 
     .blog-card img {
-      /* width: 100%; */
+      width: 100%;
       height: 200px;
       object-fit: cover;
     }
@@ -172,17 +171,17 @@
       }
     }
   </style>
-
-  
 </head>
 <body>
   <div id="app">
     <!-- 头部 -->
     <header>
-      <h1>Java 2024 sspku</h1>
+      <h1>我的个人博客</h1>
       <nav>
         <ul>
-          <li><a href="html/notifications.html">通知</a></li>
+          <li><a href="#home">首页</a></li>
+          <li><a href="#about">关于</a></li>
+          <li><a href="#contact">联系</a></li>
         </ul>
       </nav>
     </header>
@@ -190,13 +189,13 @@
     <main class="container">
       <!-- 博客列表 -->
       <div class="blog-list">
-        <div v-for="post in posts" :key="post.id" class="blog-card" @click="navigateToPost(post.id)">
+        <div v-for="post in posts" :key="post.id" class="blog-card">
           <img :src="post.image" :alt="post.title">
           <div class="blog-card-content">
             <h2>{{ post.title }}</h2>
             <p>{{ post.date }}</p>
             <p>{{ post.excerpt }}</p>
-            <!-- <a :href="'html/post-' + post.id + '.html'">阅读更多</a> -->
+            <a :href="'html/post-' + post.id + '.html'">阅读更多</a>
           </div>
         </div>
       </div>
@@ -204,7 +203,7 @@
 
     <!-- 页脚 -->
     <footer>
-      <p>Write once, debug everywhere!</p>
+      <p>&copy; 2024 我的个人博客. 保留所有权利。</p>
     </footer>
 
     <!-- 回顶部按钮 -->
@@ -218,25 +217,25 @@
           posts: [
             {
               id: 1,
-              title: '1、后端工具',
-              date: '2024-11-11',
-              image: 'images/1/mybatis.png', // 替换为你的图片路径
-              excerpt: 'java，mysql，mybatis，mybatisplus'
+              title: '我的第一个博客',
+              date: '2024-11-01',
+              image: 'wzx.jpg', // 替换为你的图片路径
+              excerpt: '这是我的第一篇博客文章，记录了我的学习之旅。'
             },
-            // {
-            //   id: 2,
-            //   title: 'Vue.js 的基础介绍',
-            //   date: '2024-10-28',
-            //   image: 'https://via.placeholder.com/800x400',
-            //   excerpt: '这篇文章介绍了 Vue.js 的基础知识和使用方法。'
-            // },
-            // {
-            //   id: 3,
-            //   title: '如何使用 GitHub Pages',
-            //   date: '2024-10-15',
-            //   image: 'https://via.placeholder.com/800x400',
-            //   excerpt: '了解如何快速将你的个人项目部署到 GitHub Pages。'
-            // }
+            {
+              id: 2,
+              title: 'Vue.js 的基础介绍',
+              date: '2024-10-28',
+              image: 'https://via.placeholder.com/800x400',
+              excerpt: '这篇文章介绍了 Vue.js 的基础知识和使用方法。'
+            },
+            {
+              id: 3,
+              title: '如何使用 GitHub Pages',
+              date: '2024-10-15',
+              image: 'https://via.placeholder.com/800x400',
+              excerpt: '了解如何快速将你的个人项目部署到 GitHub Pages。'
+            }
           ],
           showBackToTop: false
         };
@@ -247,11 +246,7 @@
         },
         handleScroll() {
           this.showBackToTop = window.scrollY > 300;
-        },
-        navigateToPost(id) {
-        // 根据 id 跳转到对应的页面
-        window.location.href = `html/post-${id}.html`;
-      }
+        }
       },
       mounted() {
         window.addEventListener('scroll', this.handleScroll);
@@ -265,5 +260,4 @@
   </script>
 </body>
 </html>
-
 
