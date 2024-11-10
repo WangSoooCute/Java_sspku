@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的个人博客</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    /* 全局样式 */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #2b2d42;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    .blog-card {
+      background: white;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .blog-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .blog-card-content {
+      padding: 15px;
+    }
+
+    .blog-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.5rem;
+    }
+
+    .blog-card p {
+      margin: 0 0 10px;
+      color: #555;
+    }
+
+    .blog-card a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #2b2d42;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- 头部 -->
+    <header>
+      <h1>我的个人博客</h1>
+      <nav>
+        <ul>
+          <li><a href="#home">首页</a></li>
+          <li><a href="#about">关于</a></li>
+          <li><a href="#contact">联系</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- 博客内容 -->
+    <main class="container">
+      <div v-for="post in posts" :key="post.id" class="blog-card">
+        <img :src="post.image" :alt="post.title">
+        <div class="blog-card-content">
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.date }}</p>
+          <p>{{ post.excerpt }}</p>
+          <a :href="'#post-' + post.id">阅读更多</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+      <p>&copy; 2024 我的个人博客. 保留所有权利。</p>
+    </footer>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          posts: [
+            {
+              id: 1,
+              title: '我的第一个博客',
+              date: '2024-11-01',
+              image: 'https://via.placeholder.com/800x400',
+              excerpt: '这是我的第一篇博客文章，记录了我的学习之旅。',
+            },
+            {
+              id: 2,
+              title: 'Vue.js 的基础介绍',
+              date: '2024-10-28',
+              image: 'https://via.placeholder.com/800x400',
+              excerpt: '这篇文章介绍了 Vue.js 的基础知识和使用方法。',
+            },
+            {
+              id: 3,
+              title: '如何使用 GitHub Pages',
+              date: '2024-10-15',
+              image: 'https://via.placeholder.com/800x400',
+              excerpt: '了解如何快速将你的个人项目部署到 GitHub Pages。',
+            }
+          ]
+        }
+      }
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
+
