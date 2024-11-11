@@ -6,27 +6,6 @@
   <title>Java 2024 sspku</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-    var gitment = new Gitment({
-        owner: 'WangSoooCute',
-        repo: 'Java_sspku',
-        oauth: {
-            client_id: 'Ov23liBCKxJbKodj2w7F',
-            client_secret: '6f411696d03aab3a4d9d01355704acec3d66fd94',
-        },
-    })
-    gitment.render('comments')
-</script>
-<script src="https://utteranc.es/client.js"
-        repo="WangSoooCute/Java_sspku"
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-
 
   <style>
     /* 全局样式 */
@@ -273,7 +252,6 @@
     <!-- 页脚 -->
     <footer>
       <p>Write once, debug everywhere!</p>
-      <div id="comments"></div>
     </footer>
 
     <!-- 回顶部按钮 -->
@@ -332,6 +310,25 @@
 
     app.mount('#app');
   </script>
+
+  <!-- 引入 Gitalk 的 CSS 和 JS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  <div id="gitalk-container"></div>
+  <script>
+    var gitalk = new Gitalk({
+      clientID: 'Ov23liBCKxJbKodj2w7F',  // 在GitHub创建应用后获得的Client ID
+      clientSecret: '8c04e26f59b012477ccee923c9c90475889a0353', // 在GitHub创建应用后获得的Client Secret
+      repo: 'Java_sspku', // 存储评论的仓库，例如username/repo
+      owner: 'Java_sspku', // 仓库所有者用户名
+      admin: ['Java_sspku'], // 拥有评论管理权限的GitHub用户名
+      id: location.pathname, // 使用页面路径作为唯一标识
+      distractionFreeMode: false // 可选：是否启用简洁模式
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
 </body>
 </html>
 
