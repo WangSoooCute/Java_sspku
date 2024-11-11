@@ -313,63 +313,63 @@ code {
           若报错8080端口被占用，则可用“server.port=”来自行设置端口，如：
         </p>
         <img src="../images/1/SpringBoot5.png" alt="SpringBoot5">
-      </div>
-      <p></p>
-        创建entity目录，并在目录entity中，创建User.java文件：
-      </p>
-      <div class="code-section">
-        <pre><code class="language-java">
-          public class User {
-            private String username;
-            private String password;
-        
-            public String getUsername() {
-                return username;
-            }
-        
-            public void setUsername(String username) {
-                this.username = username;
-            }
-        
-            public String getPassword() {
-                return password;
-            }
-        
-            public void setPassword(String password) {
-                this.password = password;
-            }
-        
-            @Override
-            public String toString() {
-                return "User{" +
-                        "username='" + username + '\'' +
-                        ", password='" + password + '\'' +
-                        '}';
-            }
-        }           
-        </code></pre>
-      </div>
-      <p>
-        在目录controller中，创建UserController.java文件：
-      </p>
-      <div class="code-section">
-        <pre><code class="language-java">
-          @RestController
-          public class UserController {
-              @PostMapping("/user")
-              public String save(User user){
-                  return "添加用户";
+        <p>
+          创建entity目录，并在目录entity中，创建User.java文件：
+        </p>
+        <div class="code-section">
+          <pre><code class="language-java">
+            public class User {
+              private String username;
+              private String password;
+          
+              public String getUsername() {
+                  return username;
               }
-          }
-        </code></pre>
+          
+              public void setUsername(String username) {
+                  this.username = username;
+              }
+          
+              public String getPassword() {
+                  return password;
+              }
+          
+              public void setPassword(String password) {
+                  this.password = password;
+              }
+          
+              @Override
+              public String toString() {
+                  return "User{" +
+                          "username='" + username + '\'' +
+                          ", password='" + password + '\'' +
+                          '}';
+              }
+          }           
+          </code></pre>
+        </div>
+        <p>
+          在目录controller中，创建UserController.java文件：
+        </p>
+        <div class="code-section">
+          <pre><code class="language-java">
+            @RestController
+            public class UserController {
+                @PostMapping("/user")
+                public String save(User user){
+                    return "添加用户";
+                }
+            }
+          </code></pre>
+        </div>
+        <p>
+          在Apipost（可以给后端发送http请求）里新建接口，并发送请求：
+        </p>
+        <img src="../images/1/SpringBoot6.jpg" alt="SpringBoot6">
       </div>
-      <p>
-        在Apipost（可以给后端发送http请求）里新建接口，并发送请求：
-      </p>
-      <img src="../images/1/SpringBoot6.jpg" alt="SpringBoot6">
     </div>
 
-    <div class="section"></div>
+    <div class="section">
       <h3 class="section-title" onclick="toggleSection(this)">使用Swagger自动生成Web API文档</h3>
       <div class="section-content">
         <p>
