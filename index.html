@@ -311,24 +311,6 @@
     app.mount('#app');
   </script>
 
-  <!-- 引入 Gitalk 的 CSS 和 JS -->
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-  <div id="gitalk-container"></div>
-  <script>
-    var gitalk = new Gitalk({
-      clientID: 'Ov23liBCKxJbKodj2w7F',  // 在GitHub创建应用后获得的Client ID
-      clientSecret: '8c04e26f59b012477ccee923c9c90475889a0353', // 在GitHub创建应用后获得的Client Secret
-      repo: 'Java_sspku', // 存储评论的仓库，例如username/repo
-      owner: 'Java_sspku', // 仓库所有者用户名
-      admin: ['Java_sspku'], // 拥有评论管理权限的GitHub用户名
-      id: location.pathname, // 使用页面路径作为唯一标识
-      distractionFreeMode: false // 可选：是否启用简洁模式
-    });
-    gitalk.render('gitalk-container');
-  </script>
-
 </body>
 </html>
 
