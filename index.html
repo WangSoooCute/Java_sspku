@@ -6,6 +6,20 @@
   <title>Java 2024 sspku</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        owner: 'WangSoooCute',
+        repo: 'Java_sspku',
+        oauth: {
+            client_id: 'Ov23liBCKxJbKodj2w7F',
+            client_secret: '6f411696d03aab3a4d9d01355704acec3d66fd94',
+        },
+    })
+    gitment.render('comments')
+</script>
+
   <style>
     /* 全局样式 */
     body {
@@ -224,6 +238,7 @@
       <nav>
         <ul>
           <li><a href="html/notifications.html">通知</a></li>
+          <li><a href="https://github.com/WangSoooCute/Java_sspku">源码</a></li>
         </ul>
       </nav>
     </header>
@@ -250,6 +265,7 @@
     <!-- 页脚 -->
     <footer>
       <p>Write once, debug everywhere!</p>
+      <div id="comments"></div>
     </footer>
 
     <!-- 回顶部按钮 -->
