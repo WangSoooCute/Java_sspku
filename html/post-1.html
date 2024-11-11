@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>后端工具</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -26,7 +30,7 @@
     }
 
     .container {
-      max-width: 800px;
+      max-width: 600px;
       margin: 20px auto;
       padding: 10px;
       background: white;
@@ -117,6 +121,10 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 增加阴影效果 */
 }
 
+strong {
+  font-weight:bold
+}
+
 .container {
   counter-reset: section-counter; /* 初始化计数器 */
 }
@@ -128,6 +136,38 @@
   font-weight: bold;
   color: #2b2d42;
 }
+
+.code-section {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+pre {
+  margin: 0;
+  overflow-x: auto; /* 支持横向滚动 */
+  padding: 10px;
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  color: #333;
+}
+
+.link {
+  color: #007bff; /* 设置链接颜色 */
+  text-decoration: none; /* 去掉下划线 */
+  font-weight: bold;
+}
+
+.link:hover {
+  text-decoration: underline; /* 鼠标悬停时显示下划线 */
+}
+
   </style>
 
 <script>
@@ -150,17 +190,26 @@
     <h2>后端工具</h2>
     <p><strong>日期：</strong>2024-11-11</p>
     <p>环境的安装、hello world级别的简单程序</p>
-    <a href="../index.html" class="back-link">返回首页</a>
+    <!-- <a href="../index.html" class="back-link">返回首页</a> -->
   </main>
 
   <div class="section">
     <h3 class="section-title" onclick="toggleSection(this)">Java环境配置</h3>
     <div class="section-content">
+      <h4>MacOS</h4>
+      <p>可以通过<a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" class="link">官方网站</a>下载，
+      </p>
+      <p>
+        也可以通过<a href="https://brew.sh" target="_blank" class="link">homebrew</a>的方式安装。后面涉及的软件、包基本上都可以通过homebrew安装
+      </p>
+      <img src="../images/1/homebrew1.png" alt="homebrew1">
+      <img src="../images/1/homebrew2.png" alt="homebrew2">
+
       <h4>Windows</h4>
-      <p>下载JDK安装包（jdk-8u131-windows-x64.exe）：https://www.oracle.com/java/technologies/downloads/#java8-windows中的exe版本，
+      <p>通过<a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" class="link">官方网站</a>下载JDK安装包中的exe版本，
       </p>
       <p>双击下载好的JDK，按照提示进行默认安装即可，注意安装路径不能出现中文或空格</p>
-      <p>环境配置：</p>
+      <p><strong>环境配置：</strong></p>
       <p>新建“JAVA_HOME”环境变量，变量值为JDK的安装目录：
       </p>
       <img src="../images/1/environment_variables.jpg" alt="environment_variables">
@@ -169,7 +218,171 @@
       <img src="../images/1/environment_variables2.png" alt="environment_variables2">
       <img src="../images/1/environment_variables3.png" alt="environment_variables3">
     </div>
-  </div>  
+  </div>
+
+  <div class="section">
+    <h3 class="section-title" onclick="toggleSection(this)">IDEA下载</h3>
+    <div class="section-content">
+      <p>IDEA：<a href="https://www.jetbrains.com/idea/download" target="_blank" class="link">官方网站</a>，学生可以免费申请专业版
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3 class="section-title" onclick="toggleSection(this)">Maven下载和镜像配置</h3>
+    <div class="section-content">
+      <p><a href="http://maven.apache.org/download.cgi" target="_blank" class="link">官方网站</a>中的bin.zip版本（Windows和MacOS都是这个），解压到非中文路径即可
+      </p>
+      <p>
+        Maven相当于一个包管理工具，核心配置文件是pom.xml
+      </p>
+      <p>
+        <strong>
+          本地仓库配置
+        </strong>
+        ：修改maven安装包中的conf/settings.xml文件，指定本地仓库位置（可以任意设置一个位置）
+      </p>
+      <img src="../images/1/Maven1.png" alt="Maven1">
+      <p>
+        <strong>
+          远程仓库配置
+        </strong>
+        ：阿里云镜像配置，在&lt;mirrors&gt;部分加入：
+      </p>
+      <!-- <img src="../images/1/Maven2.png" alt="Maven2"> -->
+      <div class="code-section">
+        <pre><code class="language-xml">
+      &lt;mirror&gt;
+        &lt;id&gt;aliyunmaven&lt;/id&gt;
+        &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
+        &lt;name&gt;阿里云公共仓库&lt;/name&gt;
+        &lt;url&gt;https://maven.aliyun.com/repository/public&lt;/url&gt;
+      &lt;/mirror&gt;
+        </code></pre>
+      </div>
+      
+      <p>
+        进入Settings里面，完成设置：
+      </p>
+      <img src="../images/1/Maven3.jpg" alt="Maven3">
+      
+    </div>
+
+    <div class="section">
+      <h3 class="section-title" onclick="toggleSection(this)">Apipost/Postman下载</h3>
+      <div class="section-content">
+        <p>
+          可以给后端发送网络请求。在没有制作好前端的时候，可以用来对后端进行调试
+        </p>
+        <p>Apipost：<a href="https://www.apipost.cn/download.html" target="_blank" class="link">官方网站</a>。类似的有Postman
+        </p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title" onclick="toggleSection(this)">快速创建SpringBoot应用</h3>
+      <div class="section-content">
+        <p>
+          利用IDEA提供的Spring Initializr创建SpringBoot应用
+        </p>
+        <img src="../images/1/SpringBoot1.png" alt="SpringBoot1">
+        <p>
+          Group：一般输入公司域名；Artifact：项目名称。
+        </p>
+        <img src="../images/1/SpringBoot2.png" alt="SpringBoot2">
+        <img src="../images/1/SpringBoot3.png" alt="SpringBoot3">
+        <p>
+          创建子目录controller，并在目录controller中，创建HelloController.java文件：
+        </p>
+        <div class="code-section">
+          <pre><code class="language-java">
+            @RestController
+            public class HelloController {
+                @GetMapping("/hello")
+                public String hello(){
+                    return "Hello world!";
+                }
+            }            
+          </code></pre>
+        </div>
+        <p>
+          启动项目（即运行HelloworldApplication.java），在浏览器窗口中输入“http://localhost:8080/hello”
+        </p>
+        <img src="../images/1/SpringBoot4.png" alt="SpringBoot4">
+        <p>
+          若报错8080端口被占用，则可用“server.port=”来自行设置端口，如：
+        </p>
+        <img src="../images/1/SpringBoot5.png" alt="SpringBoot5">
+      </div>
+      <p></p>
+        创建entity目录，并在目录entity中，创建User.java文件：
+      </p>
+      <div class="code-section">
+        <pre><code class="language-java">
+          public class User {
+            private String username;
+            private String password;
+        
+            public String getUsername() {
+                return username;
+            }
+        
+            public void setUsername(String username) {
+                this.username = username;
+            }
+        
+            public String getPassword() {
+                return password;
+            }
+        
+            public void setPassword(String password) {
+                this.password = password;
+            }
+        
+            @Override
+            public String toString() {
+                return "User{" +
+                        "username='" + username + '\'' +
+                        ", password='" + password + '\'' +
+                        '}';
+            }
+        }           
+        </code></pre>
+      </div>
+      <p>
+        在目录controller中，创建UserController.java文件：
+      </p>
+      <div class="code-section">
+        <pre><code class="language-java">
+          @RestController
+          public class UserController {
+              @PostMapping("/user")
+              public String save(User user){
+                  return "添加用户";
+              }
+          }
+        </code></pre>
+      </div>
+      <p>
+        在Apipost（可以给后端发送http请求）里新建接口，并发送请求：
+      </p>
+      <img src="../images/1/SpringBoot6.jpg" alt="SpringBoot6">
+    </div>
+
+    <div class="section"></div>
+      <h3 class="section-title" onclick="toggleSection(this)">使用Swagger自动生成Web API文档</h3>
+      <div class="section-content">
+        <p>
+          只需在pom.xml中引入springfox-swagger2和springfox-swagger-ui依赖即可：
+        </p>
+        <img src="../images/1/Swagger.png" alt="Swagger">
+        <p>
+          打开GitHub中上传的Java项目“helloworld”，启动项目并访问http://127.0.0.1:8080/swagger-ui.html，即可打开自动生成的可视化测试页面：
+        </p>
+        <img src="../images/1/Swagger2.jpg" alt="Swagger2">
+      </div>
+    </div>
+  </div>
 
   <!-- 页脚 -->
   <footer>
@@ -177,4 +390,3 @@
   </footer>
 </body>
 </html>
-

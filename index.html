@@ -171,11 +171,52 @@
         transform: translateY(0);
       }
     }
+
+    /* 三角形链接样式 */
+.triangle-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 80px solid #1c87b1; /* 三角形颜色 */
+  border-right: 80px solid transparent; /* 透明边 */
+  text-decoration: none; /* 去掉链接下划线 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 1000; /* 确保在顶部 */
+}
+
+/* 三角形内文字样式 */
+.triangle-text {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.8rem;
+  transform: rotate(-45deg); /* 旋转文字适应三角形 */
+}
+
+.link {
+  color: #007bff; /* 设置链接颜色 */
+  text-decoration: none; /* 去掉下划线 */
+  font-weight: bold;
+}
+
+.link:hover {
+  text-decoration: underline; /* 鼠标悬停时显示下划线 */
+}
   </style>
 
   
 </head>
+
 <body>
+  
+
   <div id="app">
     <!-- 头部 -->
     <header>
@@ -186,6 +227,10 @@
         </ul>
       </nav>
     </header>
+
+    <!-- <a href="https://github.com/WangSoooCute/Java_sspku" target="_blank" class="triangle-link" title="本笔记的仓库地址">
+      <span class="triangle-text">本笔记的仓库地址</span>
+    </a> -->
 
     <main class="container">
       <!-- 博客列表 -->
@@ -221,7 +266,7 @@
               title: '1、后端工具',
               date: '2024-11-11',
               image: 'images/1/mybatis.png', // 替换为你的图片路径
-              excerpt: 'java，mysql，mybatis，mybatisplus'
+              excerpt: 'Java，SpringBoot，MySQL，MyBatis，MyBatis-Plus；IDEA，Maven，Apipost/Postman；Swagger'
             },
             // {
             //   id: 2,
