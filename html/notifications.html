@@ -140,14 +140,15 @@
       <!-- 通知卡片 -->
       <div v-for="notification in notifications" :key="notification.id" class="notification-card" @click="toggleNotification(notification.id)">
         <h2>{{ notification.title }}</h2>
-        <p class="notification-content" :class="{ open: notification.open }">{{ notification.content }}</p>
+        <p v-html="notification.content"></p>
+        <!-- <p class="notification-content" :class="{ open: notification.open }">{{ notification.content }}</p> -->
       </div>
 
     </main>
 
     <!-- 页脚 -->
     <footer>
-      <p></p>
+      <p>Write once, debug everywhere!</p>
     </footer>
 
     <!-- 返回顶部按钮 -->
@@ -161,8 +162,19 @@
           notifications: [
             {
               id: 1,
-              title: '本笔记的更新记录',
+              title: '本笔记的更新日志',
               content: '2024-11-13：更新了“1、后端工具”的Swagger部分',
+              open: true
+            },
+            {
+              id: 2,
+              title: '本笔记的GitHub库说明',
+              content: 
+              '地址：<a href="https://github.com/WangSoooCute/Java_sspku" target="_blank">https://github.com/WangSoooCute/Java_sspku</a><br>' +
+              '欢迎大家Star和Fork，也欢迎大家提出Issue，共同完善本笔记。<br>' +
+              '课堂上的demo全在<a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Java" target="_blank">Java文件夹</a>里面，<br>' +
+              '带“classversion”后缀的是课上演示的版本，只要跟着教程一步一步做，就能得到这个版本的一模一样的代码。<br>' +
+              '不带这个后缀的是有更多功能的代码，可以学习更多的功能',
               open: true
             },
           ],
@@ -170,12 +182,12 @@
         };
       },
       methods: {
-        toggleNotification(id) {
-          const notification = this.notifications.find(n => n.id === id);
-          if (notification) {
-            notification.open = !notification.open;
-          }
-        },
+        // toggleNotification(id) {
+        //   const notification = this.notifications.find(n => n.id === id);
+        //   if (notification) {
+        //     notification.open = !notification.open;
+        //   }
+        // },
         scrollToTop() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         },

@@ -146,6 +146,23 @@ strong {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.copy-button:active {
+    background-color: #0056b3;
+}
+
 pre {
   margin: 0;
   overflow-x: auto; /* 支持横向滚动 */
@@ -254,6 +271,7 @@ code {
       </p>
       <!-- <img src="../images/1/Maven2.png" alt="Maven2"> -->
       <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
         <pre><code class="language-xml">
       &lt;mirror&gt;
         &lt;id&gt;aliyunmaven&lt;/id&gt;
@@ -300,6 +318,7 @@ code {
           创建子目录controller，并在目录controller中，创建HelloController.java文件：
         </p>
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-java">
             @RestController
             public class HelloController {
@@ -323,6 +342,7 @@ code {
           创建entity目录，并在目录entity中，创建User.java文件：
         </p>
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-java">
             public class User {
               private String username;
@@ -358,6 +378,7 @@ code {
           在目录controller中，创建UserController.java文件：
         </p>
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-java">
             @RestController
             public class UserController {
@@ -384,6 +405,7 @@ code {
         </p>
         
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
               <pre><code class="language-xml">
       &lt;!-- 添加 swagger2 相关功能 --&gt;
       &lt;dependency&gt;
@@ -404,8 +426,9 @@ code {
           新建config文件夹，并新建SwaggerConfig.java文件：
         </p>
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-java">
-            @Configuration // 告诉Spring容器，这个类是一个配置类
+@Configuration // 告诉Spring容器，这个类是一个配置类
 @EnableSwagger2 // 启用Swagger2功能
 public class SwaggerConfig {
     /**
@@ -438,6 +461,7 @@ public class SwaggerConfig {
           如果此时运行报错，则在application.properties里加入：
         </p>
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-java">
             spring.mvc.pathmatch.matching-strategy=ant_path_matcher
           </code></pre>
@@ -471,6 +495,7 @@ public class SwaggerConfig {
           用DataGrip添加数据：
         </p>
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-mysql">
 create table user
 (
@@ -494,6 +519,7 @@ create table user
           创建名为mpdemo的项目，然后在pom.xml中加入依赖：
         </p>
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-xml">
             &lt;!-- MyBatisPlus依赖 --&gt;
             &lt;dependency&gt;
@@ -519,6 +545,7 @@ create table user
           在application.properties中加入配置（需要改为自己的用户名和密码）：
         </p>
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-xml">
             spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
             spring.datasource.driver-class-name=com.mysql.jdbc.Driver
@@ -536,6 +563,7 @@ create table user
           新建UserController类：
         </p>
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-java">
 @RestController
 public class UserController {
@@ -555,6 +583,7 @@ public class UserController {
           新建User类：
         </p>
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-java">
 public class User {
     private int id;
@@ -612,6 +641,7 @@ public class User {
           新建UserMapper类：
         </p>
         <div class="code-section">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-java">
             @Mapper
             public interface UserMapper{
@@ -655,6 +685,26 @@ public class User {
     });
     gitalk.render('gitalk-container');
   </script>
+
+<!-- copyCode button -->
+<script>
+  function copyCode(button) {
+      // 找到当前 code-section 下的 <code> 元素
+      const codeSection = button.parentElement;
+      const codeContent = codeSection.querySelector('code').innerText;
+
+      // 使用 Clipboard API 复制代码内容
+      navigator.clipboard.writeText(codeContent).then(() => {
+          // 复制成功时提示用户
+          button.textContent = "Copied!";
+          setTimeout(() => {
+              button.textContent = "Copy";
+          }, 2000); // 恢复按钮文本
+      }).catch(err => {
+          console.error("Failed to copy: ", err);
+      });
+  }
+</script>
 
   <!-- 页脚 -->
   <footer>
