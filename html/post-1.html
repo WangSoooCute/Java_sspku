@@ -178,6 +178,7 @@ code {
 </script>
 
 </head>
+
 <body>
   <!-- 头部 -->
   <header>
@@ -310,7 +311,8 @@ code {
           </code></pre>
         </div>
         <p>
-          启动项目（即运行HelloworldApplication.java），在浏览器窗口中输入“http://localhost:8080/hello”
+          启动项目（即运行HelloworldApplication.java），在浏览器窗口中输入
+          <a href="http://localhost:8080/hello" target="_blank" class="link">http://localhost:8080/hello</a>，
         </p>
         <img src="../images/1/SpringBoot4.png" alt="SpringBoot4">
         <p>
@@ -361,6 +363,7 @@ code {
             public class UserController {
                 @PostMapping("/user")
                 public String save(User user){
+                    //System.out.println(user);
                     return "添加用户";
                 }
             }
@@ -379,11 +382,76 @@ code {
         <p>
           只需在pom.xml中引入springfox-swagger2和springfox-swagger-ui依赖即可：
         </p>
-        <img src="../images/1/Swagger.png" alt="Swagger">
+        
+        <div class="code-section">
+              <pre><code class="language-xml">
+      &lt;!-- 添加 swagger2 相关功能 --&gt;
+      &lt;dependency&gt;
+          &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+          &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;
+          &lt;version&gt;2.9.2&lt;/version&gt;
+      &lt;/dependency&gt;
+      &lt;!-- 添加 swagger-ui 相关功能 --&gt;
+      &lt;dependency&gt;
+          &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+          &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;
+          &lt;version&gt;2.9.2&lt;/version&gt;
+      &lt;/dependency&gt;
+              </code></pre>
+        </div>
+
         <p>
-          打开GitHub中上传的Java项目<a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Java/helloworld" target="_blank" class="link">"helloworld"</a>，
+          新建config文件夹，并新建SwaggerConfig.java文件：
+        </p>
+        <div class="code-section">
+          <pre><code class="language-java">
+            @Configuration // 告诉Spring容器，这个类是一个配置类
+@EnableSwagger2 // 启用Swagger2功能
+public class SwaggerConfig {
+    /**
+     * 配置Swagger2相关的bean
+     */
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com"))// com包下所有API都交给Swagger2管理
+                .paths(PathSelectors.any()).build();
+    }
+
+    /**
+     * 此处主要是API文档页面显示信息
+     */
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("演示项目API") // 标题
+                .description("演示项目") // 描述
+                .version("1.0") // 版本
+                .build();
+    }
+}
+          </code></pre>
+        </div>
+
+        <p>
+          如果此时运行报错，则在application.properties里加入：
+        </p>
+        <div class="code-section">
+          <pre><code class="language-java">
+            spring.mvc.pathmatch.matching-strategy=ant_path_matcher
+          </code></pre>
+        </div>
+        <p>
           启动项目并访问<a href="http://127.0.0.1:8080/swagger-ui.html" target="_blank" class="link">http://127.0.0.1:8080/swagger-ui.html</a>，
           即可打开自动生成的可视化测试页面：
+        </p>
+        <img src="../images/1/Swagger1.png" alt="Swagger1">
+        <p>
+          通过Swagger可以直接测试接口，不用再用Apipost发送请求。
+          以github中的
+          <a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Java/helloworld" target="_blank" class="link">helloworld</a>
+          项目为例解释Swagger的各个部分：
         </p>
         <img src="../images/1/Swagger2.jpg" alt="Swagger2">
       </div>
