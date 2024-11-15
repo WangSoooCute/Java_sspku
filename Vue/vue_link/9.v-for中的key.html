@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3"></script>
+
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- 添加用户的区域 -->
+    <div>
+      <input type="text" v-model="name">
+      <button @click="addNewUser">添加</button>
+    </div>
+
+    <!-- 用户列表区域 -->
+    <ul>
+      <li v-for="(user, index) in userlist" :key="user.id">
+        <input type="checkbox" />
+        姓名：{{user.name}}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    const vm = {
+      data: function(){
+        return {
+          // 用户列表
+          userlist: [
+            { id: 1, name: 'zhangsan' },
+            { id: 2, name: 'lisi' }
+          ],
+          // 输入的用户名
+          name: '',
+          // 下一个可用的 id 值
+          nextId: 3
+        }
+      },
+      methods: {
+        // 点击了添加按钮
+        addNewUser() {
+          this.userlist.unshift({ id: this.nextId, name: this.name })
+          this.name = ''
+          this.nextId++
+        }
+      }
+    }
+    const app = Vue.createApp(vm)
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

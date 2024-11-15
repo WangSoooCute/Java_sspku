@@ -1,433 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>后端工具</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后端工具</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-      color: #333;
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        header {
+            background-color: #2b2d42;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container img {
+            display: block;
+            /* 将图片设置为块级元素 */
+            margin-left: auto;
+            /* 自动设置左外边距 */
+            margin-right: auto;
+            /* 自动设置右外边距 */
+            width: 50%;
+            /* 图片宽度 */
+            height: auto;
+            /* 保持图片比例 */
+            margin-bottom: 20px;
+            /* 图片底部外边距 */
+            border-radius: 8px;
+            /* 圆角 */
+        }
+        
+        .container h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .container p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #2b2d42;
+            color: white;
+            margin-top: 20px;
+        }
+        
+        .section {
+            margin-left: auto;
+            /* 自动设置左外边距 */
+            margin-right: auto;
+            /* 自动设置右外边距 */
+            max-width: 1200px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .section-title {
+            background-color: #f4f4f4;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .section-content {
+            padding: 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        .section-content.open {
+            /* max-width: 1200px; */
+            max-height: none;
+            /* 可调整高度 */
+            opacity: 1;
+        }
+        
+        .section-content img {
+            display: block;
+            /* 将图片设置为块级元素 */
+            margin: 20px auto;
+            /* 自动设置左右外边距以居中 */
+            max-width: 80%;
+            /* 限制图片宽度不超过容器宽度 */
+            height: auto;
+            /* 保持图片比例 */
+            border-radius: 8px;
+            /* 图片圆角 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* 增加阴影效果 */
+        }
+        
+        strong {
+            font-weight: bold
+        }
+        
+        .container {
+            counter-reset: section-counter;
+            /* 初始化计数器 */
+        }
+        
+        .section-title::before {
+            counter-increment: section-counter;
+            /* 增加计数器 */
+            content: counter(section-counter) "、";
+            /* 显示计数 */
+            margin-right: 10px;
+            /* 间距调整 */
+            font-weight: bold;
+            color: #2b2d42;
+        }
+        
+        .code-section {
+            position: relative;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            background-color: #5d84ae;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
+        .copy-button:active {
+            background-color: #0056b3;
+        }
+        
+        pre {
+            margin: 0;
+            overflow-x: auto;
+            /* 支持横向滚动 */
+            padding: 10px;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            color: #333;
+        }
+        
+        .link {
+            color: #007bff;
+            /* 设置链接颜色 */
+            text-decoration: none;
+            /* 去掉下划线 */
+            font-weight: bold;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+            /* 鼠标悬停时显示下划线 */
+        }
+    </style>
 
-    header {
-      background-color: #2b2d42;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 10px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .container img {
-      display: block; /* 将图片设置为块级元素 */
-  margin-left: auto; /* 自动设置左外边距 */
-  margin-right: auto; /* 自动设置右外边距 */
-  width: 50%; /* 图片宽度 */
-  height: auto; /* 保持图片比例 */
-  margin-bottom: 20px; /* 图片底部外边距 */
-  border-radius: 8px; /* 圆角 */
-    }
-
-    .container h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    .container p {
-      margin-bottom: 10px;
-      line-height: 1.6;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-top: 20px;
-      color: #007bff;
-      text-decoration: none;
-    }
-
-    .back-link:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #2b2d42;
-      color: white;
-      margin-top: 20px;
-    }
-
-    .section {
-      margin-left: auto; /* 自动设置左外边距 */
-  margin-right: auto; /* 自动设置右外边距 */
-      max-width: 1200px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-.section-title {
-  background-color: #f4f4f4;
-  padding: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin: 0;
-  border-bottom: 1px solid #ccc;
-}
-
-.section-content {
-  padding: 10px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-  opacity: 0;
-}
-
-.section-content.open {
-  /* max-width: 1200px; */
-  max-height: none; /* 可调整高度 */
-  opacity: 1;
-}
-
-.section-content img {
-  display: block; /* 将图片设置为块级元素 */
-  margin: 20px auto; /* 自动设置左右外边距以居中 */
-  max-width: 80%; /* 限制图片宽度不超过容器宽度 */
-  height: auto; /* 保持图片比例 */
-  border-radius: 8px; /* 图片圆角 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 增加阴影效果 */
-}
-
-strong {
-  font-weight:bold
-}
-
-.container {
-  counter-reset: section-counter; /* 初始化计数器 */
-}
-
-.section-title::before {
-  counter-increment: section-counter; /* 增加计数器 */
-  content: counter(section-counter) "、"; /* 显示计数 */
-  margin-right: 10px; /* 间距调整 */
-  font-weight: bold;
-  color: #2b2d42;
-}
-
-.code-section {
-  margin: 20px 0;
-  padding: 15px;
-  background-color: #f4f4f4;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.copy-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    font-size: 12px;
-}
-
-.copy-button:active {
-    background-color: #0056b3;
-}
-
-pre {
-  margin: 0;
-  overflow-x: auto; /* 支持横向滚动 */
-  padding: 10px;
-}
-
-code {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 1rem;
-  color: #333;
-}
-
-.link {
-  color: #007bff; /* 设置链接颜色 */
-  text-decoration: none; /* 去掉下划线 */
-  font-weight: bold;
-}
-
-.link:hover {
-  text-decoration: underline; /* 鼠标悬停时显示下划线 */
-}
-
-  </style>
-
-<script>
-  function toggleSection(element) {
-    const content = element.nextElementSibling;
-    content.classList.toggle('open');
-  }
-</script>
+    <script>
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('open');
+        }
+    </script>
 
 </head>
 
 <body>
-  <!-- 头部 -->
-  <header>
-    <h1>后端工具</h1>
-  </header>
+    <!-- 头部 -->
+    <header>
+        <h1>后端工具</h1>
+    </header>
 
-  <!-- 博客内容 -->
-  <main class="container">
-    <img src="../images/1/java_mysql.jpg" alt="我的第一个博客">
-    <h2>后端工具</h2>
-    <p><strong>日期：</strong>2024-11-11</p>
-    <p>环境的安装、hello world级别的简单程序</p>
-    <!-- <a href="../index.html" class="back-link">返回首页</a> -->
-  </main>
+    <!-- 博客内容 -->
+    <main class="container">
+        <img src="../images/1/java_mysql.jpg" alt="后端工具">
+        <h2>后端工具</h2>
+        <p><strong>日期：</strong>2024-11-12</p>
+        <p>环境的安装、hello world级别的简单程序</p>
+        <!-- <a href="../index.html" class="back-link">返回首页</a> -->
+    </main>
 
-  <div class="section">
-    <h3 class="section-title" onclick="toggleSection(this)">Java环境配置</h3>
-    <div class="section-content">
-      <h4>MacOS</h4>
-      <p>可以通过<a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" class="link">https://www.oracle.com/java/technologies/downloads/</a>下载，
-      </p>
-      <p>
-        也可以通过<a href="https://brew.sh" target="_blank" class="link">homebrew</a>的方式安装。后面涉及的软件、包基本上都可以通过homebrew安装
-      </p>
-      <img src="../images/1/homebrew1.png" alt="homebrew1">
-      <img src="../images/1/homebrew2.png" alt="homebrew2">
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">Java环境配置</h3>
+        <div class="section-content">
+            <h4>MacOS</h4>
+            <p>可以通过<a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" class="link">https://www.oracle.com/java/technologies/downloads/</a>下载，
+            </p>
+            <p>
+                也可以通过<a href="https://brew.sh" target="_blank" class="link">homebrew</a>的方式安装。后面涉及的软件、包基本上都可以通过homebrew安装
+            </p>
+            <img src="../images/1/homebrew1.png" alt="homebrew1">
+            <img src="../images/1/homebrew2.png" alt="homebrew2">
 
-      <h4>Windows</h4>
-      <p>通过<a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" class="link">https://www.oracle.com/java/technologies/downloads/</a>下载JDK安装包中的exe版本，
-      </p>
-      <p>双击下载好的JDK，按照提示进行默认安装即可，注意安装路径不能出现中文或空格</p>
-      <p><strong>环境配置：</strong></p>
-      <p>新建“JAVA_HOME”环境变量，变量值为JDK的安装目录：
-      </p>
-      <img src="../images/1/environment_variables.jpg" alt="environment_variables">
-      <p>将“JAVA_HOME”环境变量添加到Path中。然后通过cmd中java –version看是否安装成功
-      </p>
-      <img src="../images/1/environment_variables2.png" alt="environment_variables2">
-      <img src="../images/1/environment_variables3.png" alt="environment_variables3">
+            <h4>Windows</h4>
+            <p>通过<a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" class="link">https://www.oracle.com/java/technologies/downloads/</a>下载JDK安装包中的exe版本，
+            </p>
+            <p>双击下载好的JDK，按照提示进行默认安装即可，注意安装路径不能出现中文或空格</p>
+            <p><strong>环境配置：</strong></p>
+            <p>新建“JAVA_HOME”环境变量，变量值为JDK的安装目录：
+            </p>
+            <img src="../images/1/environment_variables.jpg" alt="environment_variables">
+            <p>将“JAVA_HOME”环境变量添加到Path中。然后通过cmd中java –version看是否安装成功
+            </p>
+            <img src="../images/1/environment_variables2.png" alt="environment_variables2">
+            <img src="../images/1/environment_variables3.png" alt="environment_variables3">
+        </div>
     </div>
-  </div>
 
-  <div class="section">
-    <h3 class="section-title" onclick="toggleSection(this)">IDEA下载</h3>
-    <div class="section-content">
-      <p>IDEA：<a href="https://www.jetbrains.com/idea/download" target="_blank" class="link">https://www.jetbrains.com/idea/download</a>，
-        学生可以免费申请专业版
-      </p>
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">IDEA下载</h3>
+        <div class="section-content">
+            <p>IDEA：<a href="https://www.jetbrains.com/idea/download" target="_blank" class="link">https://www.jetbrains.com/idea/download</a>， 学生可以免费申请专业版
+            </p>
+        </div>
     </div>
-  </div>
 
-  <div class="section">
-    <h3 class="section-title" onclick="toggleSection(this)">Maven下载和镜像配置</h3>
-    <div class="section-content">
-      <p><a href="http://maven.apache.org/download.cgi" target="_blank" class="link">http://maven.apache.org/download.cgi</a>
-        中的bin.zip版本（Windows和MacOS都是这个），解压到非中文路径即可
-      </p>
-      <p>
-        Maven相当于一个包管理工具，核心配置文件是pom.xml
-      </p>
-      <p>
-        <strong>
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">Maven下载和镜像配置</h3>
+        <div class="section-content">
+            <p><a href="http://maven.apache.org/download.cgi" target="_blank" class="link">http://maven.apache.org/download.cgi</a> 中的bin.zip版本（Windows和MacOS都是这个），解压到非中文路径即可
+            </p>
+            <p>
+                Maven相当于一个包管理工具，核心配置文件是pom.xml
+            </p>
+            <p>
+                <strong>
           本地仓库配置
-        </strong>
-        ：修改maven安装包中的conf/settings.xml文件，指定本地仓库位置（可以任意设置一个位置）
-      </p>
-      <img src="../images/1/Maven1.png" alt="Maven1">
-      <p>
-        <strong>
+        </strong> ：修改maven安装包中的conf/settings.xml文件，指定本地仓库位置（可以任意设置一个位置）
+            </p>
+            <img src="../images/1/Maven1.png" alt="Maven1">
+            <p>
+                <strong>
           远程仓库配置
-        </strong>
-        ：阿里云镜像配置，在&lt;mirrors&gt;部分加入：
-      </p>
-      <!-- <img src="../images/1/Maven2.png" alt="Maven2"> -->
-      <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-        <pre><code class="language-xml">
-      &lt;mirror&gt;
-        &lt;id&gt;aliyunmaven&lt;/id&gt;
-        &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-        &lt;name&gt;阿里云公共仓库&lt;/name&gt;
-        &lt;url&gt;https://maven.aliyun.com/repository/public&lt;/url&gt;
-      &lt;/mirror&gt;
+        </strong> ：阿里云镜像配置，在&lt;mirrors&gt;部分加入：
+            </p>
+            <!-- <img src="../images/1/Maven2.png" alt="Maven2"> -->
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-xml">
+&lt;mirror&gt;
+  &lt;id&gt;aliyunmaven&lt;/id&gt;
+  &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
+  &lt;name&gt;阿里云公共仓库&lt;/name&gt;
+  &lt;url&gt;https://maven.aliyun.com/repository/public&lt;/url&gt;
+&lt;/mirror&gt;
         </code></pre>
-      </div>
-      
-      <p>
-        进入Settings里面，完成设置：
-      </p>
-      <img src="../images/1/Maven3.jpg" alt="Maven3">
-      
-    </div>
-  </div>
+            </div>
 
-    <div class="section">
-      <h3 class="section-title" onclick="toggleSection(this)">Apipost/Postman下载</h3>
-      <div class="section-content">
-        <p>
-          可以给后端发送网络请求。在没有制作好前端的时候，可以用来对后端进行调试
-        </p>
-        <p>Apipost：<a href="https://www.apipost.cn/download.html" target="_blank" class="link">https://www.apipost.cn/download.html</a>。
-          类似的还有Postman
-        </p>
-      </div>
+            <p>
+                进入Settings里面，完成设置：
+            </p>
+            <img src="../images/1/Maven3.jpg" alt="Maven3">
+
+        </div>
     </div>
 
     <div class="section">
-      <h3 class="section-title" onclick="toggleSection(this)">快速创建SpringBoot应用</h3>
-      <div class="section-content">
-        <p>
-          利用IDEA提供的Spring Initializr创建SpringBoot应用
-        </p>
-        <img src="../images/1/SpringBoot1.png" alt="SpringBoot1">
-        <p>
-          Group：一般输入公司域名；Artifact：项目名称。
-        </p>
-        <img src="../images/1/SpringBoot2.png" alt="SpringBoot2">
-        <img src="../images/1/SpringBoot3.png" alt="SpringBoot3">
-        <p>
-          创建子目录controller，并在目录controller中，创建HelloController.java文件：
-        </p>
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-java">
-            @RestController
-            public class HelloController {
-                @GetMapping("/hello")
-                public String hello(){
-                    return "Hello world!";
-                }
-            }            
-          </code></pre>
+        <h3 class="section-title" onclick="toggleSection(this)">Apipost/Postman下载</h3>
+        <div class="section-content">
+            <p>
+                可以给后端发送网络请求。在没有制作好前端的时候，可以用来对后端进行调试
+            </p>
+            <p>Apipost：<a href="https://www.apipost.cn/download.html" target="_blank" class="link">https://www.apipost.cn/download.html</a>。 类似的还有Postman
+            </p>
         </div>
-        <p>
-          启动项目（即运行HelloworldApplication.java），在浏览器窗口中输入
-          <a href="http://localhost:8080/hello" target="_blank" class="link">http://localhost:8080/hello</a>，
-        </p>
-        <img src="../images/1/SpringBoot4.png" alt="SpringBoot4">
-        <p>
-          若报错8080端口被占用，则可用“server.port=”来自行设置端口，如：
-        </p>
-        <img src="../images/1/SpringBoot5.png" alt="SpringBoot5">
-        <p>
-          创建entity目录，并在目录entity中，创建User.java文件：
-        </p>
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-java">
-            public class User {
-              private String username;
-              private String password;
-          
-              public String getUsername() {
-                  return username;
-              }
-          
-              public void setUsername(String username) {
-                  this.username = username;
-              }
-          
-              public String getPassword() {
-                  return password;
-              }
-          
-              public void setPassword(String password) {
-                  this.password = password;
-              }
-          
-              @Override
-              public String toString() {
-                  return "User{" +
-                          "username='" + username + '\'' +
-                          ", password='" + password + '\'' +
-                          '}';
-              }
-          }           
-          </code></pre>
-        </div>
-        <p>
-          在目录controller中，创建UserController.java文件：
-        </p>
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-java">
-            @RestController
-            public class UserController {
-                @PostMapping("/user")
-                public String save(User user){
-                    //System.out.println(user);
-                    return "添加用户";
-                }
-            }
-          </code></pre>
-        </div>
-        <p>
-          在Apipost（可以给后端发送http请求）里新建接口，并发送请求：
-        </p>
-        <img src="../images/1/SpringBoot6.jpg" alt="SpringBoot6">
-      </div>
     </div>
 
     <div class="section">
-      <h3 class="section-title" onclick="toggleSection(this)">使用Swagger自动生成Web API文档</h3>
-      <div class="section-content">
-        <p>
-          只需在pom.xml中引入springfox-swagger2和springfox-swagger-ui依赖即可：
-        </p>
-        
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-              <pre><code class="language-xml">
-      &lt;!-- 添加 swagger2 相关功能 --&gt;
-      &lt;dependency&gt;
-          &lt;groupId&gt;io.springfox&lt;/groupId&gt;
-          &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;
-          &lt;version&gt;2.9.2&lt;/version&gt;
-      &lt;/dependency&gt;
-      &lt;!-- 添加 swagger-ui 相关功能 --&gt;
-      &lt;dependency&gt;
-          &lt;groupId&gt;io.springfox&lt;/groupId&gt;
-          &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;
-          &lt;version&gt;2.9.2&lt;/version&gt;
-      &lt;/dependency&gt;
+        <h3 class="section-title" onclick="toggleSection(this)">快速创建SpringBoot应用</h3>
+        <div class="section-content">
+            <p>
+                利用IDEA提供的Spring Initializr创建SpringBoot应用
+            </p>
+            <img src="../images/1/SpringBoot1.png" alt="SpringBoot1">
+            <p>
+                Group：一般输入公司域名；Artifact：项目名称。
+            </p>
+            <img src="../images/1/SpringBoot2.png" alt="SpringBoot2">
+            <img src="../images/1/SpringBoot3.png" alt="SpringBoot3">
+            <p>
+                创建子目录controller，并在目录controller中，创建HelloController.java文件：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-java">
+@RestController
+public class HelloController {
+    @GetMapping("/hello")
+    public String hello(){
+        return "Hello world!";
+    }
+}            
+          </code></pre>
+            </div>
+            <p>
+                启动项目（即运行HelloworldApplication.java），在浏览器窗口中输入
+                <a href="http://localhost:8080/hello" target="_blank" class="link">http://localhost:8080/hello</a>，
+            </p>
+            <img src="../images/1/SpringBoot4.png" alt="SpringBoot4">
+            <p>
+                若报错8080端口被占用，则可用“server.port=”来自行设置端口，如：
+            </p>
+            <img src="../images/1/SpringBoot5.png" alt="SpringBoot5">
+            <p>
+                创建entity目录，并在目录entity中，创建User.java文件：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-java">
+public class User {
+    private String username;
+    private String password;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+}           
+          </code></pre>
+            </div>
+            <p>
+                在目录controller中，创建UserController.java文件：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-java">
+@RestController
+public class UserController {
+    @PostMapping("/user")
+    public String save(User user){
+        //System.out.println(user);
+        return "添加用户";
+    }
+}
+          </code></pre>
+            </div>
+            <p>
+                在Apipost（可以给后端发送http请求）里新建接口，并发送请求：
+            </p>
+            <img src="../images/1/SpringBoot6.jpg" alt="SpringBoot6">
+        </div>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">使用Swagger自动生成Web API文档</h3>
+        <div class="section-content">
+            <p>
+                只需在pom.xml中引入springfox-swagger2和springfox-swagger-ui依赖即可：
+            </p>
+
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-xml">
+&lt;!-- 添加 swagger2 相关功能 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+    &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;
+    &lt;version&gt;2.9.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- 添加 swagger-ui 相关功能 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+    &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;
+    &lt;version&gt;2.9.2&lt;/version&gt;
+&lt;/dependency&gt;
               </code></pre>
-        </div>
+            </div>
 
-        <p>
-          新建config文件夹，并新建SwaggerConfig.java文件：
-        </p>
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-java">
+            <p>
+                新建config文件夹，并新建SwaggerConfig.java文件：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-java">
 @Configuration // 告诉Spring容器，这个类是一个配置类
 @EnableSwagger2 // 启用Swagger2功能
 public class SwaggerConfig {
@@ -455,48 +475,44 @@ public class SwaggerConfig {
     }
 }
           </code></pre>
-        </div>
+            </div>
 
-        <p>
-          如果此时运行报错，则在application.properties里加入：
-        </p>
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-java">
+            <p>
+                如果此时运行报错，则在application.properties里加入：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-java">
             spring.mvc.pathmatch.matching-strategy=ant_path_matcher
           </code></pre>
+            </div>
+            <p>
+                启动项目并访问<a href="http://127.0.0.1:8080/swagger-ui.html" target="_blank" class="link">http://127.0.0.1:8080/swagger-ui.html</a>， 即可打开自动生成的可视化测试页面：
+            </p>
+            <img src="../images/1/Swagger1.png" alt="Swagger1">
+            <p>
+                通过Swagger可以直接测试接口，不用再用Apipost发送请求。 以github中的
+                <a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Java/helloworld" target="_blank" class="link">helloworld</a> 项目为例解释Swagger的各个部分：
+            </p>
+            <img src="../images/1/Swagger2.jpg" alt="Swagger2">
         </div>
-        <p>
-          启动项目并访问<a href="http://127.0.0.1:8080/swagger-ui.html" target="_blank" class="link">http://127.0.0.1:8080/swagger-ui.html</a>，
-          即可打开自动生成的可视化测试页面：
-        </p>
-        <img src="../images/1/Swagger1.png" alt="Swagger1">
-        <p>
-          通过Swagger可以直接测试接口，不用再用Apipost发送请求。
-          以github中的
-          <a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Java/helloworld" target="_blank" class="link">helloworld</a>
-          项目为例解释Swagger的各个部分：
-        </p>
-        <img src="../images/1/Swagger2.jpg" alt="Swagger2">
-      </div>
     </div>
 
     <div class="section">
-      <h3 class="section-title" onclick="toggleSection(this)">MySQL、DataGrip</h3>
-      <div class="section-content">
-        <p>
-          先下载好MySQL，并启动数据库，
-        </p>
-        <p>DataGrip：用图形化界面操作数据库：
-          <a href="https://www.jetbrains.com/datagrip/download/" target="_blank" class="link">https://www.jetbrains.com/datagrip/download/</a>。
-          类似软件还有很多
-        </p>
-        <p>
-          用DataGrip添加数据：
-        </p>
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-mysql">
+        <h3 class="section-title" onclick="toggleSection(this)">MySQL、DataGrip</h3>
+        <div class="section-content">
+            <p>
+                先下载好MySQL，并启动数据库，
+            </p>
+            <p>DataGrip：用图形化界面操作数据库：
+                <a href="https://www.jetbrains.com/datagrip/download/" target="_blank" class="link">https://www.jetbrains.com/datagrip/download/</a>。 类似软件还有很多
+            </p>
+            <p>
+                用DataGrip添加数据：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-mysql">
 create table user
 (
     id       bigint auto_increment primary key,
@@ -507,64 +523,64 @@ create table user
         unique (username)
 )
           </code></pre>
+            </div>
+            <img src="../images/1/DataGrip.jpg" alt="DataGrip">
         </div>
-        <img src="../images/1/DataGrip.jpg" alt="DataGrip">
-      </div>
     </div>
 
     <div class="section">
-      <h3 class="section-title" onclick="toggleSection(this)">MyBatis、MyBatis-Plus</h3>
-      <div class="section-content">
-        <p>
-          创建名为mpdemo的项目，然后在pom.xml中加入依赖：
-        </p>
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-xml">
-            &lt;!-- MyBatisPlus依赖 --&gt;
-            &lt;dependency&gt;
-              &lt;groupId&gt;com.baomidou&lt;/groupId&gt;
-              &lt;artifactId&gt;mybatis-plus-boot-starter&lt;/artifactId&gt;
-              &lt;version&gt;3.4.2&lt;/version&gt;
-            &lt;/dependency&gt;
-            &lt;!-- mysql驱动依赖 --&gt;
-            &lt;dependency&gt;
-              &lt;groupId&gt;mysql&lt;/groupId&gt;
-              &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
-              &lt;version&gt;5.1.47&lt;/version&gt;
-            &lt;/dependency&gt;
-            &lt;!-- 数据连接池 druid，用来一次性申请多个连接，提高数据库的连接效率 --&gt;
-            &lt;dependency&gt;
-              &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
-              &lt;artifactId&gt;druid-spring-boot-starter&lt;/artifactId&gt;
-              &lt;version&gt;1.1.20&lt;/version&gt;
-            &lt;/dependency&gt;
+        <h3 class="section-title" onclick="toggleSection(this)">MyBatis、MyBatis-Plus</h3>
+        <div class="section-content">
+            <p>
+                创建名为mpdemo的项目，然后在pom.xml中加入依赖：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-xml">
+&lt;!-- MyBatisPlus依赖 --&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;com.baomidou&lt;/groupId&gt;
+  &lt;artifactId&gt;mybatis-plus-boot-starter&lt;/artifactId&gt;
+  &lt;version&gt;3.4.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- mysql驱动依赖 --&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;mysql&lt;/groupId&gt;
+  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+  &lt;version&gt;5.1.47&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- 数据连接池 druid，用来一次性申请多个连接，提高数据库的连接效率 --&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+  &lt;artifactId&gt;druid-spring-boot-starter&lt;/artifactId&gt;
+  &lt;version&gt;1.1.20&lt;/version&gt;
+&lt;/dependency&gt;
           </code></pre>
-        </div>
-        <p>
-          在application.properties中加入配置（需要改为自己的用户名和密码）：
-        </p>
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-xml">
-            spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
-            spring.datasource.driver-class-name=com.mysql.jdbc.Driver
-            spring.datasource.url=jdbc:mysql://localhost:3306/mydb?useSSL=false
-            spring.datasource.username=root
-            spring.datasource.password=root
-            mybatis-plus.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
+            </div>
+            <p>
+                在application.properties中加入配置（需要改为自己的用户名和密码）：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-xml">
+spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/mydb?useSSL=false
+spring.datasource.username=root
+spring.datasource.password=root
+mybatis-plus.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
           </code></pre>
-        </div>
-        <p>
-          新建包mapper，并在MpdemoApplication.java中加入@MapperScan注解：
-        </p>
-        <img src="../images/1/MyBatis1.jpg" alt="MyBatis1">
-        <p>
-          新建UserController类：
-        </p>
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-java">
+            </div>
+            <p>
+                新建包mapper，并在MpdemoApplication.java中加入@MapperScan注解：
+            </p>
+            <img src="../images/1/MyBatis1.jpg" alt="MyBatis1">
+            <p>
+                新建UserController类：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-java">
 @RestController
 public class UserController {
     @Autowired
@@ -578,13 +594,13 @@ public class UserController {
     }
 }
           </code></pre>
-        </div>
-        <p>
-          新建User类：
-        </p>
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-java">
+            </div>
+            <p>
+                新建User类：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-java">
 public class User {
     private int id;
     private String username;
@@ -636,79 +652,78 @@ public class User {
     }
 }
           </code></pre>
-        </div>
-        <p>
-          新建UserMapper类：
-        </p>
-        <div class="code-section">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-java">
-            @Mapper
-            public interface UserMapper{
-                @Select("select * from user")
-                public List&lt;User&gt; find();
-            }
+            </div>
+            <p>
+                新建UserMapper类：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-java">
+@Mapper
+public interface UserMapper{
+    @Select("select * from user")
+    public List&lt;User&gt; find();
+}
           </code></pre>
+            </div>
+            <p>
+                访问<a href="localhost:8080/user" target="_blank" class="link">localhost:8080/user</a>：
+            </p>
+            <img src="../images/1/MyBatis2.png" alt="MyBatis2">
+            <p>
+                注：若出现bug，很可能是版本问题，可以参考
+                <a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Java/mpdemo_classversion" target="_blank" class="link">"mpdemo_classversion"</a> 项目的pom.xml文件
+            </p>
+            <p>
+                其他关于MyBatis、MyBatis-Plus的用法可以参考
+                <a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Java/mpdemo" target="_blank" class="link">"mpdemo"</a> 项目的代码
+            </p>
+
         </div>
-        <p>
-          访问<a href="localhost:8080/user" target="_blank" class="link">localhost:8080/user</a>：
-        </p>
-        <img src="../images/1/MyBatis2.png" alt="MyBatis2">
-        <p>
-          注：若出现bug，很可能是版本问题，可以参考
-          <a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Java/mpdemo_classversion" target="_blank" class="link">"mpdemo_classversion"</a>
-          项目的pom.xml文件
-        </p>
-        <p>
-          其他关于MyBatis、MyBatis-Plus的用法可以参考
-          <a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Java/mpdemo" target="_blank" class="link">"mpdemo"</a>
-          项目的代码
-        </p>
-
-      </div>
     </div>
-  </div>
+    </div>
 
-  <!-- 引入 Gitalk 的 CSS 和 JS -->
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-  <!-- <div id="gitalk-container"></div> -->
-  <script>
-    var gitalk = new Gitalk({
-      clientID: 'Ov23liBCKxJbKodj2w7F',  // 在GitHub创建应用后获得的Client ID
-      clientSecret: 'ac311aae77c13cbee81af08c9be2c80a3ee7533f', // 在GitHub创建应用后获得的Client Secret
-      repo: 'WangSoooCute/Java_sspku', // 存储评论的仓库，例如username/repo
-      owner: 'WangSoooCute', // 仓库所有者用户名
-      admin: ['WangSoooCute'], // 拥有评论管理权限的GitHub用户名
-      id: location.pathname, // 使用页面路径作为唯一标识
-      distractionFreeMode: false // 可选：是否启用简洁模式
-    });
-    gitalk.render('gitalk-container');
-  </script>
+    <!-- 引入 Gitalk 的 CSS 和 JS -->
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <!-- <div id="gitalk-container"></div> -->
+    <script>
+        var gitalk = new Gitalk({
+            clientID: 'Ov23liBCKxJbKodj2w7F', // 在GitHub创建应用后获得的Client ID
+            clientSecret: 'ac311aae77c13cbee81af08c9be2c80a3ee7533f', // 在GitHub创建应用后获得的Client Secret
+            repo: 'WangSoooCute/Java_sspku', // 存储评论的仓库，例如username/repo
+            owner: 'WangSoooCute', // 仓库所有者用户名
+            admin: ['WangSoooCute'], // 拥有评论管理权限的GitHub用户名
+            id: location.pathname, // 使用页面路径作为唯一标识
+            distractionFreeMode: false // 可选：是否启用简洁模式
+        });
+        gitalk.render('gitalk-container');
+    </script>
 
-<!-- copyCode button -->
-<script>
-  function copyCode(button) {
-      // 找到当前 code-section 下的 <code> 元素
-      const codeSection = button.parentElement;
-      const codeContent = codeSection.querySelector('code').innerText;
+    <!-- copyCode button -->
+    <script>
+        function copyCode(button) {
+            // 找到当前 code-section 下的 <code> 元素
+            const codeSection = button.parentElement;
+            const codeContent = codeSection.querySelector('code').innerText;
 
-      // 使用 Clipboard API 复制代码内容
-      navigator.clipboard.writeText(codeContent).then(() => {
-          // 复制成功时提示用户
-          button.textContent = "Copied!";
-          setTimeout(() => {
-              button.textContent = "Copy";
-          }, 2000); // 恢复按钮文本
-      }).catch(err => {
-          console.error("Failed to copy: ", err);
-      });
-  }
-</script>
+            // 使用 Clipboard API 复制代码内容
+            navigator.clipboard.writeText(codeContent).then(() => {
+                // 复制成功时提示用户
+                button.textContent = "Copied!";
+                setTimeout(() => {
+                    button.textContent = "Copy";
+                }, 2000); // 恢复按钮文本
+            }).catch(err => {
+                console.error("Failed to copy: ", err);
+            });
+        }
+    </script>
 
-  <!-- 页脚 -->
-  <footer>
-    <p></p>
-  </footer>
+    <!-- 页脚 -->
+    <footer>
+        <p></p>
+    </footer>
 </body>
+
 </html>

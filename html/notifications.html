@@ -116,6 +116,19 @@
       transform: scale(1.2);
     }
 
+    .link {
+            color: #007bff;
+            /* 设置链接颜色 */
+            text-decoration: none;
+            /* 去掉下划线 */
+            font-weight: bold;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+            /* 鼠标悬停时显示下划线 */
+        }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -170,9 +183,9 @@
               id: 2,
               title: '本笔记的GitHub库说明',
               content: 
-              '地址：<a href="https://github.com/WangSoooCute/Java_sspku" target="_blank">https://github.com/WangSoooCute/Java_sspku</a><br>' +
+              '地址：<a href="https://github.com/WangSoooCute/Java_sspku" target="_blank" class="link">https://github.com/WangSoooCute/Java_sspku</a><br>' +
               '欢迎大家Star和Fork，也欢迎大家提出Issue，共同完善本笔记。<br>' +
-              '课堂上的demo全在<a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Java" target="_blank">Java文件夹</a>里面，<br>' +
+              '课堂上的demo全在<a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Java" target="_blank" class="link">Java文件夹</a>和<a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Vue" target="_blank" class="link">Vue文件夹</a>里面，<br>' +
               '带“classversion”后缀的是课上演示的版本，只要跟着教程一步一步做，就能得到这个版本的一模一样的代码。<br>' +
               '不带这个后缀的是有更多功能的代码，可以学习更多的功能',
               open: true

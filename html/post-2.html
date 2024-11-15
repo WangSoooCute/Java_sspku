@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端工具</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        header {
+            background-color: #2b2d42;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container img {
+            display: block;
+            /* 将图片设置为块级元素 */
+            margin-left: auto;
+            /* 自动设置左外边距 */
+            margin-right: auto;
+            /* 自动设置右外边距 */
+            width: 50%;
+            /* 图片宽度 */
+            height: auto;
+            /* 保持图片比例 */
+            margin-bottom: 20px;
+            /* 图片底部外边距 */
+            border-radius: 8px;
+            /* 圆角 */
+        }
+        
+        .container h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .container p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #2b2d42;
+            color: white;
+            margin-top: 20px;
+        }
+        
+        .section {
+            margin-left: auto;
+            /* 自动设置左外边距 */
+            margin-right: auto;
+            /* 自动设置右外边距 */
+            max-width: 1200px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .section-title {
+            background-color: #f4f4f4;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .section-content {
+            padding: 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        .section-content.open {
+            /* max-width: 1200px; */
+            max-height: none;
+            /* 可调整高度 */
+            opacity: 1;
+        }
+        
+        .section-content img {
+            display: block;
+            /* 将图片设置为块级元素 */
+            margin: 20px auto;
+            /* 自动设置左右外边距以居中 */
+            max-width: 80%;
+            /* 限制图片宽度不超过容器宽度 */
+            height: auto;
+            /* 保持图片比例 */
+            border-radius: 8px;
+            /* 图片圆角 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* 增加阴影效果 */
+        }
+        
+        strong {
+            font-weight: bold
+        }
+        
+        .container {
+            counter-reset: section-counter;
+            /* 初始化计数器 */
+        }
+        
+        .section-title::before {
+            counter-increment: section-counter;
+            /* 增加计数器 */
+            content: counter(section-counter) "、";
+            /* 显示计数 */
+            margin-right: 10px;
+            /* 间距调整 */
+            font-weight: bold;
+            color: #2b2d42;
+        }
+        
+        .code-section {
+            position: relative;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            background-color: #5d84ae;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
+        .copy-button:active {
+            background-color: #0056b3;
+        }
+        
+        pre {
+            margin: 0;
+            overflow-x: auto;
+            /* 支持横向滚动 */
+            padding: 10px;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            color: #333;
+        }
+        
+        .link {
+            color: #007bff;
+            /* 设置链接颜色 */
+            text-decoration: none;
+            /* 去掉下划线 */
+            font-weight: bold;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+            /* 鼠标悬停时显示下划线 */
+        }
+    </style>
+
+    <script>
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('open');
+        }
+    </script>
+
+</head>
+
+<body>
+    <!-- 头部 -->
+    <header>
+        <h1>前端工具</h1>
+    </header>
+
+    <!-- 博客内容 -->
+    <main class="container">
+        <img src="../images/2/vue2.png" alt="前端工具">
+        <h2>前端工具</h2>
+        <p><strong>日期：</strong>2024-11-19</p>
+        <p>环境的安装、hello world级别的简单程序</p>
+        <!-- <a href="../index.html" class="back-link">返回首页</a> -->
+    </main>
+
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">VSCode/WebStorm</h3>
+        <div class="section-content">
+            <p>VSCode：
+                <a href="https://code.visualstudio.com/" target="_blank" class="link">https://code.visualstudio.com/</a>，
+                <br> WebStorm：
+                <a href="https://www.jetbrains.com/webstorm/download" target="_blank" class="link">https://www.jetbrains.com/webstorm/download</a>
+            </p>
+            <p>VSCode是微软出品的轻量级编辑器，支持多种语言，插件丰富，适合前端开发；<br> WebStorm是JetBrains出品的IDE，专注于前端开发，功能强大，但相对较重。
+                <br> 本教程采用VSCode
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">HTML、CSS、JavaScript</h3>
+        <div class="section-content">
+            <p>
+                HTML、CSS、JavaScript是前端开发的基础，分别用来描述网页的结构、样式和行为。
+                <br> 这3个文件可以写在同一个文件中，也可以分开写。
+            </p>
+            <a href="https://github.com/WangSoooCute/Java_sspku/tree/main/Vue/HTML_CSS_JavaScript" target="_blank" class="link">一个简单的例子：</a>
+            <p>
+                在同一个文件夹内新建3个文件：index.html、styles.css、script.js
+            </p>
+            <p>
+                index.html：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;基本示例&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt                  
+            </code></pre>
+            </div>
+            <p>
+                styles.css：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-css">
+/* 设置body样式 */
+body {
+    text-align: center; /* 居中对齐 */
+    font-family: Arial, sans-serif; /* 设置字体 */
+    background-color: #f0f0f0; /* 背景颜色 */
+    margin: 0; /* 去掉默认边距 */
+    padding-top: 20%; /* 页面顶部间距 */
+}
+
+/* 设置h1样式 */
+h1 {
+    color: #333; /* 标题颜色 */
+}
+
+/* 设置body样式 */
+button {
+    padding: 10px 20px; /* 按钮内边距 */
+    font-size: 16px; /* 按钮文字大小 */
+    background-color: #007bff; /* 按钮背景颜色 */
+    color: #fff; /* 按钮文字颜色 */
+    border: none; /* 去掉边框 */
+    cursor: pointer; /* 鼠标指针效果 */
+}
+
+/* 按钮悬停效果：鼠标悬停时背景颜色变深 */
+/* button:hover {
+    background-color: #0056b3;
+} */
+            </code></pre>
+            </div>
+            <p>
+                script.js：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+//给按钮添加点击事件监听器
+document.getElementById('changeButton').addEventListener('click', () => {
+    const title = document.getElementById('title'); //获取标题元素
+    title.textContent = 'You clicked the button!'; //修改标题的文字内容
+    title.style.color = '#007bff'; //修改标题的颜色
+});                 
+          </code></pre>
+            </div>
+            <img src="../images/2/vue3.png" alt="vue3">
+        </div>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">Vue.js</h3>
+        <div class="section-content">
+            <p>
+                Vue的官方教程：<a href="https://cn.vuejs.org/" target="_blank" class="link">https://cn.vuejs.org/</a>
+            </p>
+            <p>
+                Vue的使用可以采用链接的方式。
+                <br> 新建vue_link.html：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;用链接使用Vue&lt;/title&gt;
+    &lt;!-- 导入 vue.js 的 script 脚本文件 --&gt;
+    &lt;script src=&quot;https://unpkg.com/vue@3&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;!-- 在页面中声明一个将要被 vue 所控制的 DOM 区域，既MVVM中的View --&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        {{message}}
+    &lt;/div&gt;
+    &lt;!-- 创建一个 Vue 实例，并将其挂载到 id 为 app 的 DOM 区域上 --&gt;
+    &lt;script&gt;
+        Vue.createApp({
+                data() {
+                    return {
+                        message: 'Hello Vue!'
+                    }
+                }
+            }).mount('#app')
+            // 也可以分开写：
+            // const hello = {
+            //     data: function() {
+            //         return {
+            //             message: 'Hello Vue!'
+            //         }
+            //     }
+            // }
+            // const app = Vue.createApp(hello)
+            // app.mount('#app')//指定当前Vue实例要控制页面的哪个区域
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;                  
+        </code></pre>
+            </div>
+            <img src="../images/2/vue4.png" alt="vue4">
+        </div>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">Node.js、Vue-CLI</h3>
+        <div class="section-content">
+            <p>
+                下载Node.js：
+                <a href="https://nodejs.org/zh-cn/" target="_blank" class="link">https://nodejs.org/zh-cn/</a>
+                <br>
+                下载完后，就可以在终端中使用npm指令了。
+            </p>
+            <p>
+                安装Vue-CLI：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell">
+npm install -g @vue/cli                
+            </code></pre>
+            </div>
+            <p>
+                用Vue-CLI创建Vue项目：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell">
+vue create hello               
+            </code></pre>
+            </div>
+            <p>
+                依次选择：
+            </p>
+            <img src="../images/2/Vue-CLI.png" alt="Vue-CLI">
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell">
+cd hello
+npm run serve
+            </code></pre>
+            </div>
+            <p>
+                然后访问
+                <a href="http://localhost:8080/" target="_blank" class="link">http://localhost:8080/</a>
+                ，即可看到Vue项目的页面。
+            </p>
+            <p>
+                用VSCode打开hello文件夹
+            </p>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- 引入 Gitalk 的 CSS 和 JS -->
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <!-- <div id="gitalk-container"></div> -->
+    <script>
+        var gitalk = new Gitalk({
+            clientID: 'Ov23liBCKxJbKodj2w7F', // 在GitHub创建应用后获得的Client ID
+            clientSecret: 'ac311aae77c13cbee81af08c9be2c80a3ee7533f', // 在GitHub创建应用后获得的Client Secret
+            repo: 'WangSoooCute/Java_sspku', // 存储评论的仓库，例如username/repo
+            owner: 'WangSoooCute', // 仓库所有者用户名
+            admin: ['WangSoooCute'], // 拥有评论管理权限的GitHub用户名
+            id: location.pathname, // 使用页面路径作为唯一标识
+            distractionFreeMode: false // 可选：是否启用简洁模式
+        });
+        gitalk.render('gitalk-container');
+    </script>
+
+    <!-- copyCode button -->
+    <script>
+        function copyCode(button) {
+            // 获取代码内容
+            const codeElement = button.nextElementSibling.querySelector("code");
+            const codeText = codeElement.textContent;
+
+            // 使用 Clipboard API 复制内容到剪贴板
+            navigator.clipboard.writeText(codeText).then(() => {
+                // 复制成功后改变按钮文字
+                button.textContent = "Copied!";
+                setTimeout(() => {
+                    button.textContent = "Copy"; // 2秒后恢复原状
+                }, 2000);
+            }).catch(err => {
+                console.error("Failed to copy code:", err);
+                button.textContent = "Failed";
+                setTimeout(() => {
+                    button.textContent = "Copy"; // 恢复原状
+                }, 2000);
+            });
+        }
+    </script>
+
+    <!-- 页脚 -->
+    <footer>
+        <p></p>
+    </footer>
+</body>
+
+</html>

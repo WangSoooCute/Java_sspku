@@ -1,0 +1,30 @@
+/* 设置body样式 */
+body {
+    text-align: center; /* 居中对齐 */
+    font-family: Arial, sans-serif; /* 设置字体 */
+    background-color: #f0f0f0; /* 背景颜色 */
+    margin: 0; /* 去掉默认边距 */
+    padding-top: 20%; /* 页面顶部间距 */
+}
+
+/* 设置h1样式 */
+h1 {
+    color: #333; /* 标题颜色 */
+}
+
+/* 设置body样式 */
+button {
+    padding: 10px 20px; /* 按钮内边距 */
+    font-size: 16px; /* 按钮文字大小 */
+    background-color: #007bff; /* 按钮背景颜色 */
+    color: #fff; /* 按钮文字颜色 */
+    border: none; /* 去掉边框 */
+    cursor: pointer; /* 鼠标指针效果 */
+}
+
+/* 按钮悬停效果：鼠标悬停时背景颜色变深 */
+/* button:hover {
+    background-color: #0056b3;
+} */
+
+

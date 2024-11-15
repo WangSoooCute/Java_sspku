@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="(user, i) in userList">索引是：{{i}}，姓名是：{{user.name}}</li>
+      </ul>
+    </div>
+
+    <script>
+      const vm = {
+        data: function(){
+          return {
+            userList: [
+              { id: 1, name: 'zhangsan' },
+              { id: 2, name: 'lisi' },
+              { id: 3, name: 'wangwu' },
+            ],
+          }
+        },
+      }
+      const app = Vue.createApp(vm)
+      app.mount('#app')
+    </script>
+  </body>
+</html>

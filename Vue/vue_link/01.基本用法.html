@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 1. 导入 vue 的脚本文件 -->
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+  <body>
+
+    <!-- 2. 声明要被 vue 所控制的 DOM 区域 -->
+    <div id="app">
+      {{message}}
+    </div>
+
+    <!-- 3. 创建 vue 的实例对象 -->
+    <script>
+    const hello = {
+        // 指定数据源，既MVVM中的Model
+        data: function() {
+            return {
+                message: 'Hello Vue!'
+            }
+        }
+    }
+    const app = Vue.createApp(hello)
+    app.mount('#app')
+    </script>
+  </body>
+</html>

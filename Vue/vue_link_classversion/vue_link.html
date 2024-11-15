@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>用链接使用Vue</title>
+    <!-- 导入 vue.js 的 script 脚本文件 -->
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+    <!-- 在页面中声明一个将要被 vue 所控制的 DOM 区域，既MVVM中的View -->
+    <div id="app">
+        {{message}}
+    </div>
+    <!-- 创建一个 Vue 实例，并将其挂载到 id 为 app 的 DOM 区域上 -->
+    <script>
+        Vue.createApp({
+                data() {
+                    return {
+                        message: 'Hello Vue!'
+                    }
+                }
+            }).mount('#app')
+            // 也可以分开写：
+            // const hello = {
+            //     data: function() {
+            //         return {
+            //             message: 'Hello Vue!'
+            //         }
+            //     }
+            // }
+            // const app = Vue.createApp(hello)
+            // app.mount('#app')//指定当前Vue实例要控制页面的哪个区域
+    </script>
+</body>
+
+</html>
