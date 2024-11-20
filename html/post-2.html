@@ -109,7 +109,8 @@
         }
         
         .section-content {
-            padding: 10px;
+            padding: 0; /* 清除多余间距 padding: 10px; */
+            margin: 0; /* 清除外边距 */
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease, opacity 0.3s ease;
@@ -160,8 +161,8 @@
         
         .code-section {
             position: relative;
-            margin: 20px 0;
-            padding: 15px;
+            margin: 0;/* 重置默认外边距 margin: 20px 0; */
+            padding: 0;/* 重置默认内边距 padding: 15px; */
             background-color: #f4f4f4;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -245,8 +246,13 @@
                 <a href="https://www.jetbrains.com/webstorm/download" target="_blank" class="link">https://www.jetbrains.com/webstorm/download</a>
             </p>
             <p>VSCode是微软出品的轻量级编辑器，支持多种语言，插件丰富，适合前端开发；<br> WebStorm是JetBrains出品的IDE，专注于前端开发，功能强大，但相对较重。
-                <br> 本教程采用VSCode
+                <br>
+                下载其中任意一个即可
             </p>
+            <p>
+                推荐的VSCode插件：Vetur
+            </p>
+            <img src="../images/2/Vetur.png" alt="Vetur">
         </div>
     </div>
 
@@ -427,11 +433,147 @@ npm run serve
             <p>
                 然后访问
                 <a href="http://localhost:8080/" target="_blank" class="link">http://localhost:8080/</a>
-                ，即可看到Vue项目的页面。
+                ，即可看到Vue项目的页面：
+            </p>
+            <img src="../images/2/Vue-CLI2.png" alt="Vue-CLI2">
+            <h4>使用Vue添加组件</h4>
+            <p>
+                删去HelloWorld.vue，以及App.vue中HelloWorld组件的部分：
+            </p>
+            <img src="../images/2/Vue-CLI3.png" alt="Vue-CLI3">
+            <p>
+                添加Hello.vue组件：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">
+&lt;template&gt;
+    &lt;h1&gt;hello&lt;/h1&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+
+&lt;/style&gt;                                   
+            </code></pre>
+            </div>
+            <p>
+                在App.vue中之前删除的位置依次添加：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">
+&lt;hello&gt;&lt;/hello&gt;
+&lt;hello&gt;&lt;/hello&gt;                                  
+            </code></pre>
+            </div>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-vue">
+import Hello from './components/Hello.vue'
+            </code></pre>
+            </div>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-vue">
+Hello
+            </code></pre>
+            </div>
+            <p>
+                刷新网页：
+            </p>
+            <img src="../images/2/Vue-CLI4.png" alt="Vue-CLI4">
+        </div>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">第三方组件ElementUI</h3>
+        <div class="section-content">
+            <p>
+                新建一个Vue项目并选择Vue2版本：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell">
+vue create component-demo
+                </code></pre>
+            </div>
+            <p>
+                删除HelloWorld.vue，及App.vue中的相关代码
+            </p>
+
+            <p>
+                ElementUI文档地址：
+                <a href="https://element.eleme.cn/#/zh-CN/" target="_blank" class="link">https://element.eleme.cn/#/zh-CN/</a>
             </p>
             <p>
-                用VSCode打开hello文件夹
+                安装ElementUI：
             </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell">
+npm i element-ui -S
+                </code></pre>
+            </div>
+            <p>
+                在main.js中引入ElementUI：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+import Vue from 'vue';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import App from './App.vue';
+
+Vue.use(ElementUI);
+
+new Vue({
+  el: '#app',
+  render: h => h(App)
+});
+                </code></pre>
+            </div>
+            <p>
+                选择组件：
+                <br>
+                我们选择使用得比较多的Table表格组件：
+                <a href="https://element.eleme.cn/#/zh-CN/component/table#ji-chu-biao-ge" target="_blank" class="link">基础表格</a>
+            </p>
+            <p>
+                在App.vue中添加ElementUI组件：
+                <br>
+                新建Hello.vue组件，将复制的组件代码粘贴进去；
+            </p>
+            <p>
+                import我们的组件：
+                <br>
+                在App.vue中的对应的3个位置分别添加以下3行代码：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+&lt;Hello&gt;&lt;/Hello&gt;
+
+import Hello from "@/components/Hello.vue";
+
+Hello
+                </code></pre>
+            </div>
+            <p>
+                用npm run serve运行，即可得到：
+            </p>
+            <img src="../images/2/ElementUI.png" alt="ElementUI">
+        </div>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">Axios网络请求</h3>
+        <div class="section-content">
+
         </div>
     </div>
 
