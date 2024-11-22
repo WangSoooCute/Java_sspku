@@ -681,6 +681,127 @@ tableData: []
 vue create router-demo
                 </code></pre>
             </div>
+            <p>
+                删除HelloWorld.vue，及App.vue中的相关代码
+            </p>
+            <p>
+                安装VueRouter：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell">
+npm install vue-router@3
+                </code></pre>
+            </div>
+            <p>
+                Page1.vue
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">
+&lt;template&gt;
+    &lt;div&gt;
+        &lt;h1&gt;这是第一页的内容&lt;/h1&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+                </code></pre>
+            </div>
+            <p>
+                Page2.vue
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">
+&lt;template&gt;
+    &lt;div&gt;
+        &lt;h1&gt;第二个页面的内容&lt;/h1&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+                </code></pre>
+            </div>
+            <p>
+                在App.vue中声明路由链接和占位标签：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">
+&lt;template&gt;
+    &lt;div&gt;
+        &lt;h1&gt;路由&lt;/h1&gt;
+        &lt;router-link to="/page_one"&gt;第1页&lt;/router-link&gt;
+        &lt;br&gt;
+        &lt;router-link to="/page_two"&gt;第2页&lt;/router-link&gt;
+        &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+                </code></pre>
+            </div>
+            <p>
+                创建路由模块：在src中创建router文件夹，在里面创建index.js路由模块：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+import VueRouter from 'vue-router'
+import Vue from 'vue'
+import Page1 from '@/components/Page1.vue'
+import Page2 from '@/components/Page2.vue'
+
+//将VueRouter设置为Vue的插件
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+     // 指定hash属性与组件的对应关系
+     routes: [
+        { path: '/page_one', component: Page1 },
+        { path: '/page_two', component: Page2 },
+    ]
+})
+
+export default router
+                </code></pre>
+            </div>
+            <p>
+                挂载路由模块：在main.js中导入并挂载router：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+
+Vue.config.productionTip = false
+
+new Vue({
+    render: h => h(App),
+    router:router
+}).$mount('#app')
+                </code></pre>
+            </div>
+            <p>
+                此时，页面效果为：
+            </p>
+            <img src="../images/2/VueRouter.png" alt="VueRouter">
+            <img src="../images/2/VueRouter2.png" alt="VueRouter2">
+        </div>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">Vuex</h3>
+        <div class="section-content">
+            <p>
+                Vuex是Vue的状态管理工具，用于管理组件之间共享的数据。
+                <br>
+                官方网址：
+                <a href="https://vuex.vuejs.org/zh/" target="_blank" class="link">https://vuex.vuejs.org/zh/</a>
+            </p>
+            <!-- <p>
+                新建一个Vue项目并选择Vue2版本：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell"> -->
             
         </div>
     </div>
