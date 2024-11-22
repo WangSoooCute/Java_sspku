@@ -573,10 +573,116 @@ Hello
     <div class="section">
         <h3 class="section-title" onclick="toggleSection(this)">Axios网络请求</h3>
         <div class="section-content">
+            <p>
+                Axios用于在浏览器端使用XMLHttpRequests发送网络请求。
+                <br>
+                官方网址：
+                <a href="https://www.axios-http.cn/" target="_blank" class="link">
+                    https://www.axios-http.cn/</a>
+            </p>
+            <p>打开刚刚创建的component-demo项目，并安装Axios：</p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell">
+npm install axios
+                </code></pre>
+            </div>
 
+            <p>
+                打开DataGrip，让数据库保持运行状态。
+                <br>
+                打开我们上次创建的mpdemo项目，并把端口改为自定义的8088：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-xml">
+server.port=8088
+                </code></pre>
+            </div>
+            <p>
+                在UserController.java中加入可以允许跨域的注解：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-java">
+@CrossOrigin
+                </code></pre>
+            </div>
+
+            <p>
+                在App.vue文件的对应位置添加以下代码：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+import axios from 'axios'//写在&lt;script&gt;里面
+
+created:function() {//写在export default里面
+    axios.get('http://localhost:8088/user').then(response => {
+      console.log(response.data)
+    })
+},
+                </code></pre>
+            </div>
+            <p>
+                在浏览器中进入开发者模式，并查看Network部分，可以看到请求的结果：
+            </p>
+            <img src="../images/2/Axios.jpg" alt="Axios">
+            <h4>让Axios获取的后端数据显示在前端页面上：</h4>
+            <p>
+                把以下代码复制粘贴到Hello.vue文件的对应位置：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+import axios from 'axios'//写在&lt;script&gt;里面
+
+created:function() {//写在export default里面
+    axios.get('http://localhost:8088/user').then(response => {
+      this.tableData=response.data
+    })
+},
+                </code></pre>
+            </div>
+            <p>
+                把tableData清空：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+tableData: []
+                </code></pre>
+            </div>
+            <p>
+                在&lt;template&gt;中依次修改prop的值为：id、username、birthday，
+                <br>
+                并依次修改label的值为：编号、用户名、生日
+            </p>
+            <p>刷新前端，即可看到：</p>
+            <img src="../images/2/Axios2.png" alt="Axios2">
         </div>
     </div>
 
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">VueRouter</h3>
+        <div class="section-content">
+            <p>
+                VueRouter可以用来实现单页面应用，即在一个页面中切换不同的组件。
+                <br>
+                官方网址：
+                <a href="https://router.vuejs.org/zh/" target="_blank" class="link">https://router.vuejs.org/zh/</a>
+            </p>
+            <p>
+                新建一个Vue项目并选择Vue2版本：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell">
+vue create router-demo
+                </code></pre>
+            </div>
+            
+        </div>
     </div>
 
     <!-- 引入 Gitalk 的 CSS 和 JS -->
