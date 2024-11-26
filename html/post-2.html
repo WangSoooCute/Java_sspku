@@ -796,12 +796,100 @@ new Vue({
                 官方网址：
                 <a href="https://vuex.vuejs.org/zh/" target="_blank" class="link">https://vuex.vuejs.org/zh/</a>
             </p>
-            <!-- <p>
+            <p>
                 新建一个Vue项目并选择Vue2版本：
             </p>
             <div class="code-section">
                 <button class="copy-button" onclick="copyCode(this)">Copy</button>
-                <pre><code class="language-shell"> -->
+                <pre><code class="language-shell">
+vue create vuex-demo
+                </code></pre>
+            </div>
+            <p>
+                安装Vuex：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell">
+npm install vuex@3
+                </code></pre>
+            </div>
+            <p>
+                在src中创建store文件夹，在里面创建index.js文件：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+    state: {
+        count: 0
+    },
+    mutations: {
+        increment(state) {
+            state.count++
+        }
+    }
+})
+
+export default store
+                </code></pre>
+            </div>
+            <p>
+                在main.js中导入并挂载store：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+import store from './store'
+                </code></pre>
+            </div>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+store: store //挂载store，写在new Vue()里面
+                </code></pre>
+            </div>
+            <p>
+                在HelloWorld.vue中删去跟本节内容没有关系的部分：
+            </p>
+            <img src="../images/2/Vuex.png" alt="Vuex">
+            <p>
+                并在&lt;div class="hello"&gt;标签中添加以下代码：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">
+&lt;button @click=&quot;increment&quot;&gt;+1&lt;/button&gt;
+&lt;p&gt;{{ $store.state.count }}&lt;/p&gt;
+                </code></pre>
+            </div>
+            <p>
+                在&lt;script&gt;标签中添加以下代码：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+import { mapMutations } from 'vuex'
+                </code></pre>
+            </div>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+methods: {//在export default里面
+    ...mapMutations(['increment'])
+}
+                </code></pre>
+            </div>
+            <p>
+                这时我们的网页就变为以下效果，点击按钮数字会加1：
+            </p>
+            <img src="../images/2/Vuex2.png" alt="Vuex2">
+            
             
         </div>
     </div>
