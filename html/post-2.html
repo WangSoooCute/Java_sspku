@@ -574,7 +574,7 @@ Hello
         <h3 class="section-title" onclick="toggleSection(this)">Axios网络请求</h3>
         <div class="section-content">
             <p>
-                Axios用于在浏览器端使用XMLHttpRequests发送网络请求。
+                Axios用于在浏览器端使用XMLHttpRequests向后端发送网络请求。
                 <br>
                 官方网址：
                 <a href="https://www.axios-http.cn/" target="_blank" class="link">
@@ -889,10 +889,109 @@ methods: {//在export default里面
                 这时我们的网页就变为以下效果，点击按钮数字会加1：
             </p>
             <img src="../images/2/Vuex2.png" alt="Vuex2">
-            
-            
         </div>
     </div>
+
+    <div class="section">
+        <h3 class="section-title" onclick="toggleSection(this)">Mock.js</h3>
+        <div class="section-content">
+            <p>
+                Mock.js可以在我们只开发了前端、后端还没有开发完成的情况下，模拟接受后端数据。
+            </p>
+            <p>
+                官方网址：
+                <a href="http://mockjs.com/" target="_blank" class="link">http://mockjs.com/</a>
+            </p>
+            <p>
+                新建一个Vue项目并选择Vue2版本：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell">
+vue create mock-demo
+                </code></pre>
+            </div>
+            <p>
+                安装Mock.js和Axios：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-shell">
+npm install mockjs
+npm install axios
+                </code></pre>
+            </div>
+            <p>
+                在src中创建mock文件夹，在里面创建index.js文件：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+import Mock from "mockjs";
+
+// 示例 1：模拟一个简单的 GET 请求
+Mock.mock("/api/user", "get", {
+    code: 200,
+    message: "成功",
+    data: {
+    id: "@id", // 随机生成 ID
+    name: "@cname", // 随机生成中文姓名
+    age: "@integer(20, 50)", // 随机生成 20-50 之间的整数
+    email: "@email", // 随机生成邮箱
+    },
+});
+                </code></pre>
+            </div>
+            <p>
+                在main.js中导入mock文件：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">
+import './mock'
+                </code></pre>
+            </div>
+            <p>
+                将App.vue改为：
+            </p>
+            <div class="code-section">
+                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">
+&lt;template&gt;
+&lt;div&gt;
+    &lt;h1&gt;Mock.js 测试&lt;/h1&gt;
+    &lt;p&gt;用户信息：{{ user }}&lt;/p&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import axios from "axios";
+
+export default {
+data() {
+    return {
+    user: null,
+    };
+},
+mounted() {
+    // 在组件挂载时发送 GET 请求
+    axios.get("/api/user").then((response) => {
+    console.log("GET 请求返回：", response.data);
+    this.user = response.data.data; // 将返回的数据保存到组件状态
+    });
+},
+};
+&lt;/script&gt;
+                </code></pre>
+            </div>
+            <p>
+                这时，我们的网页就返回了一个随机生成的数据，而且每次刷新网页，数据都会重新随机生成：
+            </p>
+            <img src="../images/2/Mockjs.png" alt="Mockjs">
+        </div>
+    </div>
+
+
 
     <!-- 引入 Gitalk 的 CSS 和 JS -->
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
